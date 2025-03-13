@@ -19,31 +19,7 @@ public class HomeController : Controller
     
     public async Task<IActionResult> Index()
     {
-
-
-
-                       var httpclient = _clientFactory.CreateClient("github");
-
-       await  httpclient.GetFromJsonAsync<IEnumerable<GitHubBranch>>("repos/dotnet/aspnetcore/branches").ContinueWith(task =>
-         {
-             if (task.Exception != null)
-             {
-                 _logger.LogError(task.Exception, "An error occurred.");
-             }
-             else
-             {
-                 var branches = task.Result;    
-                 foreach (var branch in branches)
-                 {
-                     _logger.LogInformation($"Name: {branch.Name}");
-                 }
-             }
-         });
-
-
-
-
-        return View();
+      return View();
     }
 
     public IActionResult Privacy()
@@ -54,13 +30,10 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        // This line returns a view for the Error action method, passing an instance of the ErrorViewModel.
+              // This line returns a view for the Error action method, passing an instance of the ErrorViewModel.
         // The ErrorViewModel is initialized with the RequestId property, which is set to the current activity ID if available,
         // or the HTTP context trace identifier if the activity ID is not available.
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    
     }
-}
-
-internal class GitHubBranch
-{
 }
